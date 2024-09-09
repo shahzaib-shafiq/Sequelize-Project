@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 
 const { connectToDatabase } = require("./src/dbConfig/dbConfig");
-//const userRoute = require("./src/Routes/userRoute");
+const User = require("./src/Models/User");
+const Contact = require("./src/Models/Contact");
+
 
 const port = process.env.port || 3000;
 var bodyParser = require("body-parser");
@@ -27,5 +29,5 @@ dbConnect();
 
 
 app.listen(port, () => {
-    console.log(`University App listening on port ${port}`);
+    console.log(`Sequelize  App listening on port ${port}`);
 });

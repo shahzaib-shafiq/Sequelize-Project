@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const { Sequelize, DataTypes, Model } = require("sequelize");
 
 require("dotenv").config();
 
@@ -12,7 +12,6 @@ const sequelize = new Sequelize(
         port: process.env.DB_PORT || 3306,
     }
 );
-
 let connectToDatabase = async () => {
     try {
         await sequelize.authenticate();
@@ -27,7 +26,23 @@ let connectToDatabase = async () => {
     }
 };
 
-module.exports = {
-    sequelize,
-    connectToDatabase,
+const dbConnect = async () => {
+    try {
+        await connectToDatabase();
+        console.log("Database connected successfully.");
+        //await associations();
+        console.log("Associations Created");
+    } catch (error) {
+        console.error("Failed to connect to database:", error);
+    }
 };
+
+dbConnect();
+
+const db = {};
+db.Sequelize = Sequelize
+db.sequelize = sequelize
+db.Contact = require('../Models/Contact')(sequelize, DataTypes)
+db.User = require('../Models/User')(sequelize, DataTypes, Model)
+sequelize.sync({ force: true })
+module.exports = db

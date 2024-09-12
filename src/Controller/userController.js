@@ -6,8 +6,12 @@ const addUser = async (req, res) => {
         // Create a new user instance
         const jane = User.build({ firstName: "SS", lastName: "DS" });
         //console.log(jane.firstName)
+
+        // jane.set({ firstName: "Sd", lastName: "sda" })
         // Save to the database
         await jane.save();
+
+        // await jane.destroy();
 
         // Log the instance after converting it to a plain object
         console.log(jane.toJSON());
